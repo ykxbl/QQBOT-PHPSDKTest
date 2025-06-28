@@ -1,2 +1,6 @@
-# QQBOT-PHPSDKTest
-正在测试中，仅支持一点点功能
+# 一个简单的PHP *QQBOT* 框架
+- 小白一个 不喜勿喷
+
+```版本
+PHP8.0+ Redis 7.0+
+```
