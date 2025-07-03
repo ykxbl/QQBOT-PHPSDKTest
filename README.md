@@ -3,6 +3,8 @@
 
 ```版本
 PHP8.0+ Redis 7.0+
+PHP扩展：
+Redis Apcu（后续使用）
 ```
 
 - 注：目前需手动写入机器人appid与secret，暂不建议使用
