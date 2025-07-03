@@ -1,9 +1,7 @@
 <?php
-file_put_contents('log.log', file_get_contents('php://input')."\n\n".json_encode(getallheaders()));
-require_once('qqbot.php');
 
-$redis = new Redis();
-$redis->pconnect('127.0.0.1', 6379);
+require_once('qqbot.php');
+require_once('./config/redis.php');
 
 $qqbot = new qqbot($redis, ['group_message' => 'msg_group', 'c2c_message' => 'msg_c2c']);
 
