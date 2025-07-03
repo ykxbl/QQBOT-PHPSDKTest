@@ -7,6 +7,5 @@ PHP扩展：
 Redis Apcu（后续使用）
 ```
 
-- 注：目前需手动写入机器人appid与secret，暂不建议使用
-- 要使用请添加qqbot:robot_info字段（hash表）键为appid，值为appsecret
-- 后续更新会添加UI界面等(🕳️)
+- 注：管理后台 /admin
+- 默认密码 password
