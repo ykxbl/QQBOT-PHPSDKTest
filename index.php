@@ -8,10 +8,7 @@ $redis->pconnect('127.0.0.1', 6379);
 $qqbot = new qqbot($redis, ['group_message' => 'msg_group', 'c2c_message' => 'msg_c2c']);
 
 function msg_group($qqbot, $msg){
-    $read = $qqbot->read("ces", $msg['qq'], '默认');
-    $rand = rand(100, 10000);
-    $qqbot->message_reply(['content' => "\n读取到" . (string)$read . "\n随机到" . (string)$rand]);
-    $qqbot->write("ces", $msg['qq'], $rand);
+    $qqbot->message_reply(['content' => bot_tool::json_analysis($msg, "这是一个JSON解析测试\n\n你的openid为@json[qq]")]);
 }
 
 function msg_c2c($qqbot, $msg){
