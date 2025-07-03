@@ -52,7 +52,7 @@ class qqbot{
     //Redis Stream最多消息数量，默认500
     const MAX_STREAM_LENGTH = 500;
     //Redis 机器人信息字段 禁止覆盖
-    const QQBOT_RRIVATE = ['config', 'robot_info', 'messages', 'robot_access_token'];
+    const QQBOT_RRIVATE = ['config', 'robot_info', 'messages', 'robot_access_token', 'admin'];
     
     public function __construct(Redis $redis, $array = []){
         $this->redis = $redis;
