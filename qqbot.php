@@ -1,5 +1,47 @@
 <?php
 
+class bot_tool{
+    
+    /*
+      * json解析，直接替换text中@json[data.field]
+      * @param $json  JSON，array或者string
+      * @param $text  文本
+      * @param $default  json里没取到对应内容就替换成这个
+    */
+    public static function json_analysis($json, $text, $default = 'null'){
+        $array = $json;
+        if(!is_array($array)){
+            if(!is_string($json)){
+                return $text;
+            }
+            $array = json_decode($json, true);
+            if(json_last_error() !== JSON_ERROR_NONE || !is_array($array)){
+                return $text;
+            }
+        }
+        $default = is_null($default) ? 'null' : (string)$default;
+        preg_match_all('/@json\[([^\]]*)\]/', $text, $matches);
+        if(empty($matches[0])){
+            return $text;
+        }
+        foreach($matches[1] as $index => $fieldPath){
+            $fullMatch = $matches[0][$index];
+            $fields = explode('.', trim($fieldPath));
+            $value = $array;
+            foreach($fields as $field){
+                if(is_array($value) && array_key_exists($field, $value)){
+                    $value = $value[$field];
+                }else{
+                    $value = $default;
+                    break;
+                }
+            }
+            $text = str_replace($fullMatch, $value, $text);
+        }
+        return $text;
+    }
+}
+
 class qqbot{
     
     private $headers, $body, $msg, $appid, $secret, $access_token, $redis, $qqbot_list;
@@ -9,7 +51,7 @@ class qqbot{
     const BOT_URL = 'https://api.sgroup.qq.com';
     //Redis Stream最多消息数量，默认500
     const MAX_STREAM_LENGTH = 500;
-    //Redis保留字段 防止被嘿壳嘿
+    //Redis 机器人信息字段 禁止覆盖
     const QQBOT_RRIVATE = ['config', 'robot_info', 'messages', 'robot_access_token'];
     
     public function __construct(Redis $redis, $array = []){
